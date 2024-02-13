@@ -28,18 +28,46 @@ def create_project_structure(root_directory):
 def create_root_directory(root_directory):
 
     """
-    
+    This creates the main directory of the project. 
+    It will create with all the needs to be inside the root directory.
     """
 
-    os.makedirs(root_directory)
+    if not os.path.exists(root_directory):
+        os.makedirs(root_directory)
+    else:
+        print("Folder alreaady exists.")
 
 def create_project_directory(root_directory):
-    os.mkdir(root_directory)
+
+    """
+    This will create the project folder only
+    """
+    
+    try:
+        os.mkdir(root_directory)
+        print("Folder created successfully.")
+    except FileExistsError:
+        print("File already exists.")
+
 
 def create_folder(folder_path):
-    os.makedirs(folder_path)
+
+    """
+    This creates the folder that we will be using to store all the subfolders.
+    """
+
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+    else:
+        print("Folder already exists.")
+
 
 def create_nested_folders(root_directory):
+
+    """
+    The nested folders in the project that will be sorting and storing the files the user will need and create.
+    """
+
     folders = {
         'documents': ['csvFiles', 'presentations'],
         'source-code': ['backend', 'frontend', 'utils'],
@@ -53,11 +81,22 @@ def create_nested_folders(root_directory):
             subfolder_path = os.path.join(folder_path, subfolder)
             create_folder(subfolder_path)
 
+
 def create_file(file_path):
+
+    """
+    This will create the files and be able to edit the files.
+    """
+
     with open(file_path, 'w') as f:
         f.write('This is a generic file.')
 
+
 def create_generic_files(root_directory):
+    """
+    In this function we are inserting the files we need in the project.
+    """
+
     generic_files = ['README.md', 'LICENSE.txt', 'requirements.txt']
 
     for file in generic_files:
@@ -71,6 +110,7 @@ def main():
 
     welcomeMessage()
     project_name = input("Enter the name of your project directory: ")
+    
     create_project_structure(project_name)
     print(f"Project structure created successfully at '{project_name}'.")
 
